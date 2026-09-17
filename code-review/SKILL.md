@@ -10,7 +10,9 @@ A framework for reviewing and writing code. Apply to every ticket and merge requ
 Read `references/best-practices.md` for the standards the checklist's **B — Best
 Practices** item refers to. If the change generalizes something from one case to many,
 or claims to fix a bug, invoke the `bug-hunt` skill — those two situations have their
-own technique and are where reviewer-found bugs actually come from.
+own technique and are where reviewer-found bugs actually come from. If the change is one
+where being wrong is expensive to undo — a migration, access control, money, permissions —
+run the `adversarial-review` skill instead and let the author defend it.
 
 **Review someone else's diff against the ticket and the checklist below. Do not raise
 repo-authoring conventions (comment style, migration file layout, logger naming) as

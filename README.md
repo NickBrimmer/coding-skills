@@ -14,12 +14,21 @@ That is why the `description` is long and lists trigger phrases.
 | `ticket-planning` | `/ticket-planning` | Writes an implementation plan before any code. Phased: verify every assumption against the code, cite file and line, flag what is unclear instead of guessing. |
 | `code-review` | `/code-review` | Reviews a PR, branch, or diff against a checklist: ticket fidelity, scope creep, security, accessibility, testing, error handling, repo conventions. |
 | `bug-hunt` | `/bug-hunt` | Finds bugs the diff does not show — missed call sites after a one-to-many change, broken invariants, fix claims nobody reproduced. |
+| `adversarial-review` | `/adversarial-review` | A hostile two-session review. One session attacks the diff and its assumptions, the other defends and fixes, both in one- to two-line entries in the ticket file. |
 | `end-my-day` | `/end-my-day` | Five closing questions. Writes what is in flight to `tomorrow.txt` and appends what you learned to the coding ledger. |
 | `start-my-day` | `/start-my-day` | Reads `tomorrow.txt`, checks each item against the repo as it is now, and hands back a short plan with a concrete first action. |
 
 `code-review` hands off to `bug-hunt` when a change generalizes one case to many or
-claims to fix a bug. `end-my-day` and `start-my-day` are two halves of one loop: the
+claims to fix a bug. `adversarial-review` is the heavier version for changes where being
+wrong is expensive — migrations, access control, money — and it leans on both. `end-my-day` and `start-my-day` are two halves of one loop: the
 first writes `tomorrow.txt`, the second reads it.
+
+### Running an adversarial review
+
+Two terminals on the same repo, `/adversarial-review` in each. The ticket's planning
+`.md` is the only channel between them — each side appends a line and stops, and you move
+the other session. You rule on anything the evidence does not settle, and you decide when
+it is over.
 
 ### tomorrow.txt
 

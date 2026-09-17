@@ -7,7 +7,9 @@ dest="${1:-$HOME/.claude/skills}"
 
 mkdir -p "$dest"
 
-for skill in bug-hunt code-review ticket-planning; do
+for dir in "$repo"/*/; do
+  [ -f "$dir/SKILL.md" ] || continue
+  skill=$(basename "$dir")
   if [ -e "$dest/$skill" ] && [ ! -L "$dest/$skill" ]; then
     echo "skip $skill: $dest/$skill exists and is not a symlink"
     continue

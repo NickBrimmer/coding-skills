@@ -115,7 +115,7 @@ Before reporting anything, drop it if it is:
   go. Naming preferences, a helper you'd have extracted, a ternary you'd have written as
   an if.
 - **Speculative** — "this could break if someone later…" with no concrete trigger in the
-  current code. Find the caller that does it, or drop it.
+  current code. Find the caller that does it (LSP find-references), or drop it.
 - **Intentional and in-scope** — a behavior change that is obviously part of what the
   ticket asked for, even if it wasn't spelled out in the description.
 - **A repo-authoring convention** — comment style, migration file layout, logger naming.
@@ -153,6 +153,11 @@ bucket 3 when you'd merely have written the test differently.
 
 ## Reporting findings
 
+- Findings written to a planning file follow
+  `~/.claude/skills/ticket-planning/references/plan-structure.md`: the `Problem:` / `Fix:`
+  concern shape, 30-word lines, evidence tags.
+- The project's private `context/conventions.md` (see `project-context.md` beside it)
+  says how this codebase does security and conventions; read it before filing either.
 - Lead with the correctness bugs. Quality and style findings go after, clearly separated.
 - Every finding names a file and line and states the concrete failure: what input or
   state produces what wrong output.

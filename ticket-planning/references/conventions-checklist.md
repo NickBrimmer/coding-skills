@@ -3,8 +3,9 @@
 Applies to code authored in this repo directly. **Never raise one of these as a review
 finding on someone else's diff** — they are authoring standards, not review criteria.
 
-Every section below is a *default*. Where the repo does it differently, the repo wins —
-grep a real call site before trusting anything here.
+Every section below is a *default*. The project's private `context/conventions.md` (see
+`project-context.md`) overrides it, and the repo itself overrides both — grep a real call
+site before trusting anything here.
 
 ---
 
@@ -29,7 +30,7 @@ not how it came to be.
   `file.ts:123` — and the context lives there or in the plan. Never a multi-line comment
   that inlines the whole story.
 - **Never narrative.** No names, no dates, no session history, no story of how the code
-  got here. `// We tell the user it's their filters (Nick, 2026-09-16)` and `// We tried
+  got here. `// We tell the user it's their filters (Sam, 2026-01-15)` and `// We tried
   the effect version first and it double-fired` are both wrong: git blame carries who and
   when, the plan carries what was decided and why.
 - A plain causal "why" is right and is not narrative:

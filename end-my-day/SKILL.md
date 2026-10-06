@@ -5,7 +5,7 @@ description: Close out the work day — capture what to remember for tomorrow, c
 
 # End My Day
 
-Five questions, asked one at a time. The output is a `tomorrow.txt` in the repo root
+Five questions, asked one at a time. The output is the project's private `tomorrow.txt`
 that `start-my-day` reads back.
 
 **Never ask a question cold.** Read the repo state first and open each question with a
@@ -54,7 +54,7 @@ One at a time. Wait for each answer. Lead each with what you found.
    Look for the moment something was wrong and got corrected — a wrong assumption about
    an API, a convention discovered mid-task, a bug whose cause was not where it looked.
    A ledger entry is the lesson, not the story: what to do differently next time.
-   Appends to `~/Developer/planning/coding-ledger.md`. Create that file if missing.
+   Appends to `~/Developer/planning-files/coding-ledger.md` (private, never in a repo). Create that file if missing.
 
 5. **Did anything happen today that you want to bring up in Retro?**
    Friction, not tasks: a slow pipeline, a flaky test, a blocked hour waiting on access,
@@ -65,7 +65,7 @@ section.
 
 ## 3. Write the file
 
-`tomorrow.txt` in the repo root. Rewrite it whole every evening — never append. A stale
+`~/Developer/planning-files/<project>/tomorrow.txt` — private, out of the repo, so it is never committed (see `ticket-planning/references/project-context.md`). Rewrite it whole every evening — never append. A stale
 line left from last week reads as live work and costs someone a morning.
 
 ```

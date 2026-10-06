@@ -17,3 +17,9 @@ for dir in "$repo"/*/; do
   ln -sfn "$repo/$skill" "$dest/$skill"
   echo "linked $skill -> $repo/$skill"
 done
+
+git -C "$repo" config core.hooksPath .githooks
+echo "leak check on: commit and push hooks in .githooks/"
+
+denylist="$HOME/.config/coding-skills/denylist.txt"
+[ -s "$denylist" ] || echo "warning: no $denylist yet; commits and pushes are blocked until it exists (README, Privacy)"

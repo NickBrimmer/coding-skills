@@ -14,7 +14,7 @@ until the user says go — the morning's real priority often is not in the file.
 
 ## 1. Read tomorrow.txt
 
-`tomorrow.txt` in the repo root, written by `end-my-day`.
+`~/Developer/planning-files/<project>/tomorrow.txt`, written by `end-my-day` (see `ticket-planning/references/project-context.md`).
 
 - **Missing?** Say so in one line and build the plan from repo state alone (step 2).
   Offer `end-my-day` for tonight. Do not create an empty one.

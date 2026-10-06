@@ -25,9 +25,17 @@ They don't surface from re-reading the diff. The diff is fine. The bug is elsewh
 
 ### The audit
 
-Don't stop at "does the site I changed still work." **Grep the whole repo for the exact
+Don't stop at "does the site I changed still work." **Search the whole repo for the exact
 constant, value, or pattern being generalized, and check every hit** — not just the ones
 in the ticket's own file list.
+
+**Search with the LSP first, then grep.** When the assumption lives in a TypeScript
+symbol — a function, exported constant, type, or prop — use the LSP tool's find-references
+(and incoming calls for functions) to get the call sites. It follows aliased imports and
+re-exports, and it doesn't match unrelated identifiers that share the name. Then grep for
+whatever the type graph can't see: string literals, route paths passed to `href()`, SQL
+column names, and anything outside `.ts`/`.tsx` (planning files, config, migrations). A
+hit list built only from the LSP is incomplete; so is one built only from grep.
 
 Three shapes to look for:
 
@@ -64,13 +72,14 @@ diff.
 ### Checklist
 
 - [ ] Name the old assumption out loud: which constant, value, or "there is only one X"?
-- [ ] `grep -rn "<the constant>"` across the whole repo. Every hit gets a decision:
-      updated, or a deliberate documented no-op.
+- [ ] LSP find-references on the symbol, then `grep -rn "<the constant>"` across the whole
+      repo for string and non-TS uses. Every hit gets a decision: updated, or a
+      deliberate documented no-op.
 - [ ] Any value with an implicit relationship to the new one (sums, pairs, mirrored IDs)?
       Grep for it too.
 - [ ] Is this the second instance of a pattern? Read the first instance in full and reuse
       its mechanism.
-- [ ] Re-run the grep after implementation, before merge.
+- [ ] Re-run both searches after implementation, before merge.
 
 ---
 
@@ -80,6 +89,10 @@ For any change claiming a **bug fix, a data-correctness fix, or a performance
 improvement** — don't take the description's word for it, and **don't stop at "the code
 looks right."** Reproduce and confirm directly, the same way during review as during
 investigation.
+
+How this project runs, queries, and seeds data locally is in its private
+`context/dev-loop.md`, if present — see
+`~/.claude/skills/ticket-planning/references/project-context.md`.
 
 ### The loop
 

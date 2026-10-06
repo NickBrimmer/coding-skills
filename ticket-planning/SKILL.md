@@ -5,23 +5,30 @@ description: Write an implementation plan for a ticket, issue, or feature before
 
 # Ticket Planning
 
-Follow these phases in order. Write for a reader with zero context: verify every
-assumption against the code, cite file+line for every pattern, flag anything unclear
-instead of guessing.
+Follow these phases in order. Write simply and declaratively for a reader with zero
+context: state what is true and what to do, give file+line instead of explaining, and
+flag anything unclear instead of guessing. Verify every assumption against the code.
+Zero context means the reader gets a pointer they can follow, not context pasted in.
 
 **Keep each planning file under 500 lines.** Link to the canonical code (file+line)
 instead of inlining it.
 
-Read `references/plan-structure.md` before writing the file — it defines the section
-headings and the `Concern` / `Option` label scheme every plan uses. Read
-`references/conventions-checklist.md` at Phase 7.
+Read before writing:
+
+- `references/plan-structure.md` — headings, the `Concern` / `Option` labels, and the
+  writing rules (30-word lines, `Problem:` / `Fix:` shape, evidence tags). It wins over
+  anything else.
+- `references/project-context.md` — where this project's private context lives. Phases 1,
+  6, 7 and 9 read from it when it exists.
+- `references/conventions-checklist.md` — at Phase 7.
 
 ---
 
 ## Phase 1: Setup & Orientation
 
-- Create the planning file. Use the project's existing planning directory if it has
-  one; otherwise `planning/<ticket-id>-<slug>.md`. Match the naming of sibling plans.
+- Create the planning file in the project's private `plans/` folder, named per
+  `context/tracker.md` (see `references/project-context.md`). No private folder → the
+  project's existing planning directory, else `planning/<ticket-id>-<slug>.md`.
 - Read the ticket in full before writing anything.
 - Write the purpose in one sentence. Can't write it → the ticket is under-specified.
 - List every explicit requirement as a DOD item.
@@ -103,6 +110,7 @@ diverged):
 **Generalization Audit** (1 → N changes — a single case becoming several): grep the
 whole repo for the old constant/assumption, not just the files already in scope. This
 is the highest-yield check in the guide — the full pattern is in the `bug-hunt` skill.
+The project's `context/worked-examples.md`, if present, points at past plans that show it.
 
 **Deployment & Operational Risk:**
 - State migration-before-deploy explicitly if code depends on it.
@@ -138,7 +146,8 @@ unconditional subqueries that run even when the feature is off.
 ## Phase 6: Security & Validation
 
 OWASP Top 10 pass, written as **this codebase's instantiation** of each — not the
-generic definition:
+generic definition. The project's `context/conventions.md` (Phase 6 section), if present,
+says how this codebase does each one; the defaults below apply otherwise:
 
 - **Injection** — parameterized queries only, no raw interpolation.
 - **Broken Auth** — every loader/route re-verifies permission server-side.
@@ -156,9 +165,9 @@ Additionally:
 
 ## Phase 7: Repo Convention Checklist
 
-Read `references/conventions-checklist.md` and apply the sections that exist in this
-repo. Anything the repo does differently, the repo wins — read a real call site rather
-than trusting the checklist.
+Read `references/conventions-checklist.md`, then the project's `context/conventions.md`
+if present, and apply the sections that exist in this repo. The project file wins over
+the generic checklist, and a real call site wins over both.
 
 **These apply to code authored in this repo directly. Never raise a Phase 7 item as a
 review finding on someone else's diff.**
@@ -167,9 +176,11 @@ review finding on someone else's diff.**
 
 Run in order after the plan is otherwise complete.
 
-- **Jr Engineer Test:** every insertion point has file+line+surrounding context · every
-  unfamiliar pattern explained or pointed to a canonical example · call signatures shown
-  before/after · every place needing the same logic kept in sync called out explicitly.
+- **Jr Engineer Test:** could a junior act on each line on a first read, without asking?
+  Every step is one declarative instruction at a `file:line` · an unfamiliar pattern gets
+  a pointer to a canonical example, not an explanation · a changed signature shows
+  before → after, one line each · every place that must stay in sync is listed. Plain
+  words over precise jargon. A line that needs a second read gets rewritten, not expanded.
 - **Staff Engineer Test:** no duplicated logic that should share one source of truth ·
   no outage window from migration order · flag gate consistent across
   validation/UI/write · unconditional-query trade-offs documented · degraded downstream
@@ -177,6 +188,8 @@ Run in order after the plan is otherwise complete.
 - **Scope Creep Final Pass:** re-run Phase 4's Scope Creep Pass against the finished plan.
 - **Copy & Spelling Pass:** read every user-facing string aloud, spell-check it, confirm
   it matches the design exactly.
+- **Concision Pass:** every line meets the writing rules in `references/plan-structure.md`;
+  its length check lists any line over the cap.
 - **Final Outstanding Questions Pass:** list every unresolved question; sort blocker vs.
   clarification. Blockers become `⚠️ Implementation check` notes; clarifications go in
   the DOD.
@@ -197,11 +210,12 @@ Add as a standing section to every plan; it runs during and after implementation
 - **Verify directly, don't infer from the diff.** Run the dev server backgrounded and
   read its stdout; query the dev DB through whatever mechanism the project actually uses
   (check the README — the obvious client may not connect); hit handlers directly to
-  bypass the UI. Full technique in the `bug-hunt` skill.
+  bypass the UI. Full technique in the `bug-hunt` skill; the project's specifics are in
+  `context/dev-loop.md` if present.
 - **Flag plan/convention conflicts before committing.** Scan every pre-written code
   block against the repo's agent-instructions file. Add a one-line code comment for each
   justified deviation.
-- **Pre-merge checklist:**
+- **Pre-merge checklist** (plus the project's own, in `context/conventions.md`):
   - [ ] Every flag-gate marker comment present on every gated block.
   - [ ] `grep -r "<TICKET-ID>" .` returns exactly the plan's listed touch points.
   - [ ] No stray debug logging — the project's logger only.

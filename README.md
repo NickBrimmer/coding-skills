@@ -23,6 +23,7 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 | `start-my-day` | `/start-my-day` | Reads `tomorrow.txt`, checks each item against the repo as it is now, and hands back a short plan with a concrete first action. |
 | `start-branch` | `/start-branch` | Creates or confirms the branch, reads the ticket, and creates or reopens the ticket's planning file. Stops before planning. |
 | `start-review` | `/start-review` | Checks out a teammate's MR or PR branch, reads the ticket and discussions, runs the tests, and opens a review file recording the reviewed SHA. Stops before reviewing. |
+| `walkthrough-changes` | `/walkthrough-changes` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click and expectation per step, with a coverage check. |
 
 `code-review` hands off to `bug-hunt` when a change generalizes one case to many or
 claims to fix a bug. `adversarial-review` is the heavier version for changes where being

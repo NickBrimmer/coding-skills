@@ -113,6 +113,9 @@ Default to **plan → record → implement**, as three distinct steps, and do no
 
 - **A topic selection is not authorization to build.** Picking an option in a question
   names *what to plan*, not permission to start editing. Ask before the first source edit.
+- **"Confirm the plan with me" covers every action that changes the repo,** not only code
+  edits: a rebase, merge, reset, or any other git operation that rewrites or moves history.
+  State the steps and the expected outcome first, and wait for a yes before running them.
 - Reconnaissance is fine and encouraged during planning: reading code, `git` inspection,
   dry-runs, spikes that get thrown away. What needs a green light is **code intended to survive**.
 - If a spike is genuinely the fastest way to answer a design question, say that first and
@@ -235,3 +238,33 @@ Anything committed to a public repo — this one included — holds process only
 product, customer, or colleague names, no ticket keys, internal hosts, work repo names, or
 home paths, and nothing about how a work system is built. Project facts live in the
 private context folder (`ticket-planning/references/project-context.md`).
+
+## 13. The ticket is the spec — read all of it before asking
+
+Before bringing the engineer a scope or behaviour question, read the governing ticket or epic
+in full: description, Q&A, and comments, not a keyword search. Answer from it when it answers.
+When it is silent, say so — "read in full, it does not say" — and give a recommendation
+rather than reaching for sources outside it.
+
+**Why:** the engineer has to re-read the ticket every time an agent asks something it already
+answers, and an outside source can quietly override what the ticket decided.
+
+## 14. Write it down before you say it
+
+In any session tied to a ticket — planning, implementing, reviewing — the ticket's
+planning or review file is written **before** the engineer hears anything, not after.
+A finding, a finished step, the engineer's answers, deferred work, and a call made in
+their absence each go into the file as they happen. The report then names what changed
+in the file instead of repeating it.
+
+- **Never ask "want me to record this?"** Recording to the ticket's file is standing
+  instruction, not an extra under §0a.
+- **Terse, not complete.** Results, not activity. The Status block stays five lines; a
+  finished concern shrinks to one.
+- A hook in this repo backs the rule up (see the README); the rule holds without it.
+
+**Why:** an engineer who has to ask "has that been recorded?" is doing the agent's
+bookkeeping. Anything only in chat is lost to a crash, a context compaction, or a fresh
+session — and was usually the most important thing found.
+
+Full rule: `ticket-planning/references/plan-structure.md`, Record as you go.

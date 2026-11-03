@@ -77,6 +77,7 @@ rules win over anything here.
 
 ## Handoff Status
 **Tests:** <pass/fail counts; each failure marked branch-caused or pre-existing>.
+**Next:** <the single next action, e.g. `/code-review`>.
 
 ## Goal
 <the ticket's purpose in one sentence>

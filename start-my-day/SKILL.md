@@ -39,8 +39,9 @@ Never repeat a line back as live without opening the file it names.
 
 ## 3. Pull in the rest
 
-- **The active planning file**, if the project has one. Its stop-gate or checklist is the
-  real source of what is next; `tomorrow.txt` is only the last session's handoff.
+- **The active planning file**, if the project has one. Its `## Status` block (the
+  `Next:` line, then any `[my call]` waiting on the engineer) is the real source of what
+  is next; `tomorrow.txt` is only the last session's handoff.
 - **Check-in items** from the file — a PR waiting on review, a question left unanswered,
   a job left running. These are usually faster than the code work and block other people.
   They go first.

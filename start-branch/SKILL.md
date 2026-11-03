@@ -56,6 +56,9 @@ and writing rules win over anything here.
 **Ticket:** TICKET-123 · **Epic:** <epic key, or none>
 **Depends on:** / **Blocks:** (epic tickets only)
 
+## Status
+At `<short sha>`. Next: `/ticket-planning`.
+
 ## Goal
 <one sentence. Can't write it → the ticket is under-specified; say so as a blocker.>
 

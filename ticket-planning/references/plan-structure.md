@@ -10,11 +10,59 @@ This file wins over any skill's or template's own labelling or writing format.
 
 Follow the house structure, matching the sibling plans in the same epic:
 
-`## Goal` · `## Scope` · `## Existing code to build on` · `## Open questions` ·
+`## Status` · `## Goal` · `## Scope` · `## Existing code to build on` · `## Open questions` ·
 `## Tests Required` · `## Notes`
 
 A new top-level section needs a reason. "This file grew its own workflow over many
 sessions" is not one.
+
+## Status
+
+The first section after the header block. A cold reader learns where the work stands
+without reading the rest. Five lines at most, rewritten in place, never appended to.
+
+```
+## Status
+At `abc1234`. Next: rebase on !123, then Step 3.
+- [x] Steps 1–2 [ran: tests pass]
+- [ ] Step 3: `app/x.tsx:40` done, `:52` not
+- Waiting on the engineer: Concern #3; `[my call]` ×2
+```
+
+- Line one is always the commit and the single next action.
+- A step is a tick and a pointer. How it was done goes in the evidence file.
+- Work finished → the whole block becomes one line: `Done at <sha>, MR !N.`
+- A review file's `## Handoff Status` is its Status block.
+
+## Record as you go
+
+The file is written before the engineer hears anything, not after. Anything that exists
+only in chat is lost to a crash, a compaction, or a fresh session.
+
+Write to the file, then report, when any of these happens:
+
+- **A finding that would change what the engineer does** → its `Concern #N` straight
+  away, tagged `[unverified]` until checked. Upgrade the tag when the check runs.
+- **A step finishes or stops part-way** → tick or amend its Status line.
+- **The engineer answers questions or decides something** → record every answer before
+  any other tool call. A resolved STOP GATE row compacts in the same write.
+- **Work is deferred** → a `Follow-up:` line under `## Notes`.
+- **Something can only be checked by hand** → a `Browser check:` line under
+  `## Tests Required`.
+- **A call made while the engineer is away** → record it where it belongs, tagged
+  `[my call]`. The tag comes off when the engineer confirms it.
+- **About to report** → the file is current first. The report names what changed in the
+  file ("Concern #13 added, Status updated"); it does not repeat it.
+
+Line prefixes and tags, not new sections:
+
+- `Follow-up: <one line> — <ticket to file, or the existing ticket>`
+- `Browser check: <what to do> → <what to see>`
+- `[my call]` — decided without the engineer; ask on their return.
+- A user-facing string carries its source: `[design]`, `[ticket]`, or `[mine]`.
+
+Terse beats complete. A line that only says work happened ("investigated the loader") is
+noise: record the result, or nothing.
 
 ## Labels
 
@@ -87,6 +135,12 @@ already shows the diff, so don't paste a stat or summarize the change.
 
 ```sh
 awk '/^```/{c=!c;next} !c && NF>30 {print FILENAME":"NR": "NF" words"}' <file>.md
+```
+
+And a Status block over five lines:
+
+```sh
+awk '/^## /{s=($0 ~ /Status$/)} s && NF && !/^## /{n++} END{if(n>5) print FILENAME": Status has "n" lines"}' <file>.md
 ```
 
 ## Header block

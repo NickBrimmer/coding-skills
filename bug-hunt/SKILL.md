@@ -11,6 +11,9 @@ touched, or in a claim nobody reproduced.
 
 Reading the diff again will not find either one. Run the technique.
 
+A hit goes into the ticket's planning or review file as a `Concern #N` the moment it is
+found, before it is reported — `ticket-planning/references/plan-structure.md`, Record as you go.
+
 ---
 
 ## 1. Incomplete Generalization

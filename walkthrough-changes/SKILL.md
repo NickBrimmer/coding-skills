@@ -25,8 +25,8 @@ Take whatever the engineer names: a planning file, a ticket key, an MR or PR, or
 Nothing → the current branch against the trunk.
 
 - Read the planning file or ticket in full — status, scope, decided behaviour, open
-  concerns, and any list of what is not yet browser-tested. Those lists are the best
-  source of "what to look for".
+  concerns, and its `Browser check:` lines. Those lines are the best source of "what to
+  look for", and each one gets a step.
 - Diff the branch against the trunk: `git diff --stat origin/main...HEAD`, then read the
   changed files that render UI, load data or run actions.
 - Plan says X, diff shows no X → record it as a **mismatch**. Diff changes UI the plan
@@ -108,29 +108,30 @@ Close the list with three short sections:
 
 ## 6. Walk it
 
-Default to **one step at a time**: the engineer says "step 3 done", you read the log
-since the last mark and report errors, warnings, failed requests and anything that
-matches the step's "watch for", against that step number. You cannot see the log between
-those moments, so say that plainly instead of implying you were watching.
+Print the whole checklist first (§7). Then, when the engineer says "step 3 done", read
+the log since the last mark and report errors, warnings, failed requests and anything
+that matches the step's "watch for", against that step number. You cannot see the log
+between those moments, so say that plainly instead of implying you were watching.
 
 - A log line you cannot explain is reported as seen, not diagnosed.
 - A finding inside the ticket's scope is noted against its step. A finding outside it is
   listed separately as a discrete item for a ticket, never fixed inline.
-- The engineer may ask for the full list at once. Give it, and offer the log check at the
-  end.
+- Record as the engineer walks: tick each `Browser check:` line that passed, and file an
+  in-scope finding as a `Concern #N` in the plan before reporting it. The checklist itself
+  stays in the session.
 
-## 7. Save it
+## 7. Output goes in the session
 
-Write the checklist, with checkboxes and any findings so far, to the project's private
-`evidence/` folder, named `walkthrough-<ticket-id>.md` — see `project-context.md`. No
-private folder → `planning/walkthrough-<ticket-id>.md`. Rewrite it in place on a rerun;
-add the reviewed commit short SHA at the top so a later session can tell if it is stale.
+Print the setup block and the full checklist in the terminal session, as the reply
+itself. Do not write the walkthrough to a file unless the engineer asks for one. Open
+with the reviewed commit short SHA, and note any uncommitted changes, so the engineer can
+tell if the list goes stale.
 
 ## Boundaries
 
 - Never approve or merge an MR or PR, by any route.
-- Never edit source, migrations or the planning file's decisions. Findings go in the
-  walkthrough file; a fix is a separate, asked-for step.
+- Never edit source, migrations or the planning file's decisions. Findings are reported
+  in the session and recorded in the plan per §6; a fix is a separate, asked-for step.
 - Never commit. The engineer does.
 - Phrase anything that is a recommendation as a suggestion; facts stay plain.
 - Do not drive the browser unless the engineer asks. The walkthrough is theirs to run.

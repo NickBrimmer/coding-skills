@@ -25,7 +25,9 @@ Before the first question, gather quietly — don't narrate this part:
 - `git status -sb` — branch, staged, unstaged, untracked.
 - `git log --oneline -10` — what landed.
 - `git diff --stat` and `git diff --cached --stat` — what is half-done.
-- Any planning file in the project's planning directory that changed today.
+- Any planning file in the project's planning directory that changed today: its
+  `## Status` block, `[my call]` tags, and `Follow-up:` lines. These are the draft for
+  questions 1 and 3; a stale Status block is itself an item to fix.
 - Stray debug artifacts in the diff: a scratch `console.log`, a commented-out block, a
   hardcoded test value, a skipped test. These are the most common "I meant to clean that
   up" item.

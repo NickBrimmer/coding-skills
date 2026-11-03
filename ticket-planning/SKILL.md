@@ -13,6 +13,9 @@ Zero context means the reader gets a pointer they can follow, not context pasted
 **Keep each planning file under 500 lines.** Link to the canonical code (file+line)
 instead of inlining it.
 
+**Record as you go, in every phase.** Each finding, finished step, and answer from the
+engineer goes into the plan before it is reported — `plan-structure.md`, Record as you go.
+
 Read before writing:
 
 - `references/plan-structure.md` — headings, the `Concern` / `Option` labels, and the

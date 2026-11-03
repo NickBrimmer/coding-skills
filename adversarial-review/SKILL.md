@@ -28,7 +28,8 @@ fixed.
 ## The ticket file is the channel
 
 Append to a `## Adversarial Review` section in the ticket's planning `.md`. There is no
-other channel. The two sessions cannot talk.
+other channel. The two sessions cannot talk. Write each entry when it is found, never in a
+batch at the end, and keep the plan's Status line current for your side.
 
 **Labels and writing follow
 `~/.claude/skills/ticket-planning/references/plan-structure.md`, which wins over anything

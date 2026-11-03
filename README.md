@@ -122,6 +122,27 @@ git log -p --all | grep '^+' | scripts/leak-check.sh --label history
 **Metrics:** zero hits in a staged diff, zero hits in history, zero planning-file lines
 over 30 words (the length check in `plan-structure.md`).
 
+## Record as you go
+
+`scripts/claude-record-hook.sh` backs up working-agreement §14. It stays silent unless the
+current branch name starts with a ticket key and a matching file exists in the private
+`plans/` or `reviews/` folder (`ticket-planning/references/project-context.md`).
+
+| Event | What it does |
+| --- | --- |
+| `PostToolUse` | Every 15 tool calls without a write to that file, reminds the agent to record |
+| `Stop` | A turn of 5+ tool calls that never wrote the file is sent back once to record |
+| `SessionStart` (`compact`) | After a compaction, points the agent at the file's `## Status` block |
+
+`RECORD_HOOK_EVERY` changes the 15; `PLANNING_FILES_DIR` overrides the private folder's
+root. In `~/.claude/settings.json`, beside the leak hook:
+
+```json
+"PostToolUse": [{ "hooks": [{ "type": "command", "command": "sh \"$HOME/Developer/coding-skills/scripts/claude-record-hook.sh\" posttool" }] }],
+"Stop": [{ "hooks": [{ "type": "command", "command": "sh \"$HOME/Developer/coding-skills/scripts/claude-record-hook.sh\" stop" }] }],
+"SessionStart": [{ "matcher": "compact", "hooks": [{ "type": "command", "command": "sh \"$HOME/Developer/coding-skills/scripts/claude-record-hook.sh\" compact" }] }]
+```
+
 ## Install
 
 Clone, then link each skill into your Claude Code skills folder and turn on the hooks:

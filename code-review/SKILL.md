@@ -156,6 +156,8 @@ bucket 3 when you'd merely have written the test differently.
 - Findings written to a planning file follow
   `~/.claude/skills/ticket-planning/references/plan-structure.md`: the `Problem:` / `Fix:`
   concern shape, 30-word lines, evidence tags.
+- Write each finding into the review or planning file when it is found, before reporting
+  it — plan-structure.md, Record as you go.
 - The project's private `context/conventions.md` (see `project-context.md` beside it)
   says how this codebase does security and conventions; read it before filing either.
 - Lead with the correctness bugs. Quality and style findings go after, clearly separated.

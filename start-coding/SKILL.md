@@ -136,5 +136,5 @@ git status: 9 files modified, no lockfile drift, nothing committed
 
 - **Done / Partial / Skipped** cover every step selected in §1. Nothing goes unaccounted for.
 - **Needs you** holds every new question and every `[my call]`, each with the default taken.
-- **Suggest the next step in one line** — `/walkthrough-changes` for the browser checks,
+- **Suggest the next step in one line** — `/step-through-code` for the browser checks,
   `/code-review` for a self-review — and stop. Do not run either.

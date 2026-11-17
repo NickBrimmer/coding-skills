@@ -116,6 +116,8 @@ Default to **plan → record → implement**, as three distinct steps, and do no
 - **"Confirm the plan with me" covers every action that changes the repo,** not only code
   edits: a rebase, merge, reset, or any other git operation that rewrites or moves history.
   State the steps and the expected outcome first, and wait for a yes before running them.
+- **A proposal shows the exact artifact,** puts the one decision first, and ends with a
+  read-back step — `ticket-planning/references/action-plan.md`.
 - Reconnaissance is fine and encouraged during planning: reading code, `git` inspection,
   dry-runs, spikes that get thrown away. What needs a green light is **code intended to survive**.
 - If a spike is genuinely the fastest way to answer a design question, say that first and

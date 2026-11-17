@@ -23,7 +23,10 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 | `start-my-day` | `/start-my-day` | Reads `tomorrow.txt`, checks each item against the repo as it is now, and hands back a short plan with a concrete first action. |
 | `start-branch` | `/start-branch` | Creates or confirms the branch, reads the ticket, and creates or reopens the ticket's planning file. Stops before planning. |
 | `start-review` | `/start-review` | Checks out a teammate's MR or PR branch, reads the ticket and discussions, runs the tests, and opens a review file recording the reviewed SHA. Stops before reviewing. |
-| `walkthrough-changes` | `/walkthrough-changes` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click and expectation per step, with a coverage check. |
+| `step-through-code` | `/step-through-code` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click, options to try and expectation per step, with a coverage check. |
+| `check` | `/check <task>` | Investigates the task read-only, prints a proposal in the `action-plan.md` shape, and waits. `/do` runs it. |
+| `do` | `/do` | The go-ahead in one word. Bare, it runs the last proposal exactly as printed; with text, it answers that proposal's open decision or does the task described. Never commits or pushes. |
+| `soft-diff-plan` | `/soft-diff-plan` | Soft-diffs the branch against its base (trial merge with `git merge-tree`, overlap and silent-collision checks), writes a resolution plan, and waits. Never merges or rebases without approval. |
 
 `code-review` hands off to `bug-hunt` when a change generalizes one case to many or
 claims to fix a bug. `adversarial-review` is the heavier version for changes where being
@@ -47,6 +50,10 @@ it is over.
   lives and how skills read it.
 - `ticket-planning/references/conventions-checklist.md` — generic authoring defaults for
   code you write. Not review criteria.
+- `ticket-planning/references/example-plan.md` — a miniature planning file, one line or
+  two per section, showing the finished shape.
+- `ticket-planning/references/action-plan.md` — how a proposal for an approval-gated
+  change is shown: what was checked, the decision first, steps, then the exact draft.
 - `code-review/references/best-practices.md` — the standards behind the checklist's
   best-practices item.
 

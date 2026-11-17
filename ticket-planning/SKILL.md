@@ -24,6 +24,8 @@ Read before writing:
 - `references/project-context.md` — where this project's private context lives. Phases 1,
   6, 7 and 9 read from it when it exists.
 - `references/conventions-checklist.md` — at Phase 7.
+- `references/example-plan.md` — a miniature plan showing the finished shape.
+- `references/action-plan.md` — at Hand back.
 
 ---
 
@@ -225,6 +227,15 @@ Add as a standing section to every plan; it runs during and after implementation
   - [ ] Migration down-path actually tested by running it.
   - [ ] Generalization Audit re-run: grep the old constant/assumption, confirm every
         sibling site was updated or is a deliberate no-op.
+
+## Hand back
+
+The file is current before the engineer hears anything (`plan-structure.md`, Record as you go).
+The reply then follows `references/action-plan.md`, in this order:
+
+- The one decision the engineer must make, with lettered options and a suggestion.
+- What changed in the file, by label: "Concern #4 added, Status updated". Not repeated.
+- The single next step, and what it needs from the engineer.
 
 ---
 

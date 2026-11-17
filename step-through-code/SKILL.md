@@ -1,9 +1,9 @@
 ---
-name: walkthrough-changes
-description: Write a step-by-step browser walkthrough of a branch or merge request — setup and prerequisites first, then rough URL by rough URL what to click and what to look for — and watch the dev server logs while the engineer walks it. Use when the user is about to click through a branch, MR or PR in the browser, asks for a manual test script or QA walkthrough, asks what to click and look for, or wants to check a branch's features end to end. Produces the script and watches logs; it does not drive the browser or change source.
+name: step-through-code
+description: Write a step-by-step browser walkthrough of a branch or merge request — setup and prerequisites first, then rough URL by rough URL what to click, which options to try, and what each should give — and start the dev server to watch its logs for errors while the engineer walks it. Use when the user asks to step through or walk through code changes, is about to click through a branch, MR or PR in the browser, asks how to test new changes, asks for a manual test script or QA walkthrough, asks what to click and look for, or wants to check a branch's features end to end. Produces the script and watches logs; it does not drive the browser or change source.
 ---
 
-# Walkthrough Changes
+# Step Through Code
 
 Produce a script the engineer follows by hand, then stay on the logs while they do. The
 output is a prerequisites list, a freshly restarted dev server whose logs you can read,
@@ -84,6 +84,7 @@ Every step uses this shape, one line per field, none over about 30 words:
 - **Where:** /workspace/x/roles/…  (rough URL)
 - **Do:** select two skills, choose Add, pick a role, press Submit
 - **Expect:** a toast reports the count; the role shows both skills
+- **Try:** one skill → toast says "1 skill"; a skill the role already has → no duplicate row
 - **Watch for:** console errors, a 4xx/5xx on the action, a flash of the old list
 - **Basis:** plan "Scope" + `app/x.tsx:120` [read]
 ```
@@ -91,6 +92,9 @@ Every step uses this shape, one line per field, none over about 30 words:
 - **Where** is a rough URL with the dynamic parts as placeholders, plus a nav path when
   the route is not linkable. Derive it from the route config, not from memory.
 - **Expect** states something observable. "Works" is not a state.
+- **Try** lists the options worth varying at that step — filters, toggles, inputs, roles,
+  sort orders — each as `option → expected result`. Pick the variations the diff branches
+  on, two to four per step. Leave the field out when the step has nothing to vary.
 - **Basis** names the plan section or file line the expectation rests on. An expectation
   from design intent only, with no code or plan behind it → `[unverified]`.
 - A design link in the plan goes on the step it governs, so the engineer can compare.

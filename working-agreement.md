@@ -48,6 +48,10 @@ Applies to planning and ticket files too, not just chat — those are their docu
 Facts and constraints stay stated plainly ("this would break existing bookmarked URLs");
 it is *recommendations* that get the softer register.
 
+**The engineer's stated rules win over a suggestion.** When a rule in `CLAUDE.md`, this
+agreement, or their message covers the case, follow it by default. Don't recommend
+around it — e.g. keeping dead ideas the rules say to delete.
+
 ## 2. Label verified vs assumed — and no bare negatives
 
 State claims at the confidence they were actually earned, and make the difference visible

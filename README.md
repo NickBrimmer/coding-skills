@@ -26,6 +26,7 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 | `step-through-code` | `/step-through-code` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click, options to try and expectation per step, with a coverage check. |
 | `check` | `/check <task>` | Investigates the task read-only, prints a proposal in the `action-plan.md` shape, and waits. `/do` runs it. |
 | `do` | `/do` | The go-ahead in one word. Bare, it runs the last proposal exactly as printed; with text, it answers that proposal's open decision or does the task described. Never commits or pushes. |
+| `handoff` | `/handoff` | Sweeps the chat and auto-memory into the planning file, deletes dead ideas, rewrites Status, and prints a one-line resume prompt. Never commits. |
 | `soft-diff-plan` | `/soft-diff-plan` | Soft-diffs the branch against its base (trial merge with `git merge-tree`, overlap and silent-collision checks), writes a resolution plan, and waits. Never merges or rebases without approval. |
 
 `code-review` hands off to `bug-hunt` when a change generalizes one case to many or

@@ -17,7 +17,13 @@ esac
 
 printf '%s' "$input" |
   jq -r '.tool_input | [.content, .new_string, (.edits // [] | .[].new_string)] | map(select(. != null)) | .[]' |
-  "$repo/scripts/leak-check.sh" --label "$path" && exit 0
+  "$repo/scripts/leak-check.sh" --label "$path"
+status=$?
+[ "$status" -eq 0 ] && exit 0
 
-echo "Blocked: this would put private information into the public coding-skills repo. Use a placeholder, or move it to the project's private context file." >&2
+if [ "$status" -eq 2 ]; then
+  echo "Blocked: setup missing, not a leak. Copy the denylist to this machine (README, Privacy)." >&2
+else
+  echo "Blocked: this would put private information into the public coding-skills repo. Use a placeholder, or move it to the project's private context file." >&2
+fi
 exit 2

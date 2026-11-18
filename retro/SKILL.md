@@ -1,44 +1,50 @@
 ---
 name: retro
-description: "Conduct a retrospective on a coding session."
+description: Retrospective on a coding session — reads the session log, the ticket's planning
+  file and tomorrow.txt's RETRO lines, then suggests changes to the agent's environment (skills,
+  hooks, checks, steering files) in order of severity, each naming the file the fix belongs in.
+  Use only when the engineer types /retro. Never invoke it on your own.
 disable-model-invocation: true
 ---
 
-The user has asked for a **retrospective**. You are suggesting improvements to the coding agent's **environment** to improve future runs.
+# Retro
+
+Suggest changes to the agent's environment so the next session goes better. A retro proposes;
+it builds nothing (§0a). The engineer picks what to fix, usually through `/check` or `/do`.
 
 ## Steps
 
 1. Call the Skill tool with `writing-for-agents` for the writing style guide.
 
-2. Read the primary sources for the session the user specifies. This may mean searching through session logs on this machine. If the user doesn't specify a session, default to the current one.
+2. **Read the sources.** The session is the current one unless the engineer names another;
+   logs are `~/.claude/projects/<slug>/*.jsonl`, newest first. Also read, where they exist:
+   - the ticket's planning or review file — a finding said in chat but missing here is evidence
+   - `RETRO` lines in `~/Developer/planning-files/<project>/tomorrow.txt`
+   - the steering in force: `working-agreement.md`, the private `~/.claude/CLAUDE.md`, the
+     repo's `CLAUDE.md` or `AGENTS.md`, and `context/conventions.md`
 
-3. Look for candidates for improvement in these categories.
+3. **Look for these.**
+   - **Navigation** — the session spent long finding a file or fact. Fix: a pointer in
+     `context/repo-map.md` or the repo's `CLAUDE.md`.
+   - **Automated checks** — read the repo's hooks, CI and check scripts first; an existing
+     check left unwired is the finding. A mechanical mistake gets a check, never a rule.
+     A repo with no hook and no CI running its checks is a finding on its own.
+   - **Review checklist** — the reviewer is `code-review`. A judgement call it missed goes in
+     its checklist or `context/conventions.md`; a mechanical one goes to a check.
+   - **Working agreement** — the agent broke a rule: name the section, and whether it needs a
+     hook, sharper wording, or nothing.
+   - **Steering weight** — a rule that a hook or the review checklist could carry instead, or
+     one that changes no behaviour (a no-op). Suggest moving or deleting it.
+   - **Recording** — something found that never reached the planning file (§14).
+   - **Tool economy** — an expensive or repeated call a script or flag would shorten.
+   - **Information access** — something the agent needed and could not see: logs, a
+     read-only service, a dev server.
 
-- **Navigation**: how easy was it for the agent to find the right files? Are there hidden dependencies between files? Would a **navigation pointer** make it easier? _Use when_ the session took a long time to find a piece of information.
-- **Automated checks**: are there automated checks that could catch errors the agent made? Linting, typing, tests, filesystem linters? Read the repo's own check command first (its `package.json`/build-tool `lint`/`check` scripts, its CI workflow), so a check that already exists but sits unwired or silently broken is the finding, not a reinvention. A repo with no **guardrail** (no pre-commit hook and no CI job running its lint/typecheck/test command) is itself a finding: an un-linted repo is a standing missed opportunity, not a neutral default. _Use when_ the agent made a mistake an automated check could have caught, or the repo has no guardrail at all.
-- **Coding standards**: should the **reviewer agent** be given a new rule to enforce? Should an existing rule be removed or clarified? Classify the violation first: a **mechanical** one (a fixed syntactic pattern, a banned API, an import shape, a file-location rule) gets a deterministic check, full stop: a custom rule in the repo's own linter, a new pre-commit hook, or a new CI job, whichever the repo's language and existing guardrail make cheapest. Default to building the check over writing the rule. Reserve `CODING_STANDARDS.md` for genuine **judgement calls** (cross-file consistency, "matches the surrounding style," anything no guardrail could ever substitute for). _Use when_ the reviewer agent failed to catch a mistake.
-- **Global AGENTS.md**: are there any steering instructions that should be moved to coding standards (or automated checks) instead? _Use when_ the AGENTS.md file is particularly large - in the repo OR the user's global scope.
-- **Tool economy**: did the agent make expensive tool calls that could be streamlined? Is there any custom tooling (CLI's, MCP's) that is particularly token-inefficient? _Use when_ the agent made an expensive tool call.
-- **No-ops**: look for instructions in steering files that don't modify the agent's behavior. _Use when_ the steering files are large and unwieldy.
-- **Information access**: look for opportunities to increase the agent's access to information. Teeing dev server logs, readonly access to third-party services. _Use when_ a crucial piece of information was not available to the agent.
+4. **Name where each fix lives.** Public (this repo, process only, §12): skills, hooks,
+   scripts, `working-agreement.md`. Private: `~/.claude/CLAUDE.md`, the project's `context/`.
+   A fix that needs a private fact goes private, whatever it is about.
 
-4. Present these candidates to the user, in order of severity.
-
-## Reference
-
-### Implementation vs Review
-
-Remember that all work goes through two stages: implementation and review. The implementation agent has the most **context pressure**. They are responsible for exploration, writing code, and debugging failures.
-
-The review agent has the least context pressure - it receives a diff, so no exploration needed. It often does not need to write code or debug.
-
-This means that the review agent should be responsible for imposing coding standards, not the implementation agent.
-
-### Files
-
-You have access to several files in the repo:
-
-- `CLAUDE.md`/`AGENTS.md`: these files are pushed to the context window of any agent working in this repo. They should be used incredibly sparingly, usually only for **navigation pointers** to other files.
-- `CODING_STANDARDS.md`: this file is read during review, not implementation. Add **navigation pointers** to docs folders if the standards file gets more than 1,000 lines long.
-- Docs: use docs as references files, pointed to by other files. Look for existing docs before writing new ones.
-- Skills: use skills for docs (since their description goes into the agent's context window), or for user-invoked commands. Follow the advice in the `writing-for-agents` skill.
+5. **Report in chat only.** Nothing is written to a file. List the findings most severe first,
+   each with its tag (`[ran]`, `[read]`, `[unverified]`) and the file its fix belongs in, as
+   suggestions (§1). Feedback about how we work together → ask whether it belongs in the
+   working agreement (§5).

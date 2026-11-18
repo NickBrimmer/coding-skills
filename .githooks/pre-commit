@@ -15,4 +15,9 @@ $files
 EOT
 
 [ "$status" -eq 0 ] || echo "pre-commit: private information found; nothing was committed." >&2
+
+"$root/scripts/skills-table-check.sh" || {
+  echo "pre-commit: add a README row for each skill above; nothing was committed." >&2
+  status=1
+}
 exit "$status"

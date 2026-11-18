@@ -22,11 +22,14 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 | `end-my-day` | `/end-my-day` | Five closing questions. Writes what is in flight to the project's private `tomorrow.txt` and appends what you learned to the coding ledger. |
 | `start-my-day` | `/start-my-day` | Reads `tomorrow.txt`, checks each item against the repo as it is now, and hands back a short plan with a concrete first action. |
 | `start-branch` | `/start-branch` | Creates or confirms the branch, reads the ticket, and creates or reopens the ticket's planning file. Stops before planning. |
+| `start-coding` | `/start-coding` | The go-ahead to build a recorded plan. Works the planning file's steps in one pass, records findings as they happen, runs the checks, and reports what still needs you. |
 | `start-review` | `/start-review` | Checks out a teammate's MR or PR branch, reads the ticket and discussions, runs the tests, and opens a review file recording the reviewed SHA. Stops before reviewing. |
 | `step-through-code` | `/step-through-code` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click, options to try and expectation per step, with a coverage check. |
 | `check` | `/check <task>` | Investigates the task read-only, prints a proposal in the `action-plan.md` shape, and waits. `/do` runs it. |
 | `do` | `/do` | The go-ahead in one word. Bare, it runs the last proposal exactly as printed; with text, it answers that proposal's open decision or does the task described. Never commits or pushes. |
 | `handoff` | `/handoff` | Sweeps the chat and auto-memory into the planning file, deletes dead ideas, rewrites Status, and prints a one-line resume prompt. Never commits. |
+| `retro` | `/retro` | A retrospective on a coding session: suggests changes to the agent's environment — navigation, automated checks, standards, tooling — in order of severity. |
+| `writing-for-agents` | loaded by other skills | Style guide for text an agent reads — skills, `CLAUDE.md`, working-agreement sections, hook messages, planning files, retro suggestions. |
 | `soft-diff-plan` | `/soft-diff-plan` | Soft-diffs the branch against its base (trial merge with `git merge-tree`, overlap and silent-collision checks), writes a resolution plan, and waits. Never merges or rebases without approval. |
 
 `code-review` hands off to `bug-hunt` when a change generalizes one case to many or
@@ -162,7 +165,11 @@ cd ~/Developer/coding-skills
 ```
 
 `install.sh` links every folder holding a `SKILL.md` into `~/.claude/skills/`, so a new
-skill needs no change to the script, and points `core.hooksPath` at `.githooks/`. Editing
+skill needs no change to the script, and points `core.hooksPath` at `.githooks/`. After
+that, `.githooks/post-merge` and `post-checkout` rerun it on every pull, merge or checkout,
+so new skills link themselves.
+A commit is refused when a skill folder has no row in the table above
+(`scripts/skills-table-check.sh`, run from `.githooks/pre-commit`). Editing
 a file in the clone changes the live skill, so `git status` always shows the truth.
 
 Then, on each machine: create the denylist, add the agent hook, and add the import line

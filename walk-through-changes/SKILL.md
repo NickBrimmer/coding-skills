@@ -1,5 +1,5 @@
 ---
-name: step-through-code
+name: walk-through-changes
 description: Write a step-by-step browser walkthrough of a branch or merge request — setup and prerequisites first, then rough URL by rough URL what to click, which options to try, and what each should give — and start the dev server to watch its logs for errors while the engineer walks it. Use when the user asks to step through or walk through code changes, is about to click through a branch, MR or PR in the browser, asks how to test new changes, asks for a manual test script or QA walkthrough, asks what to click and look for, or wants to check a branch's features end to end. Produces the script and watches logs; it does not drive the browser or change source.
 ---
 

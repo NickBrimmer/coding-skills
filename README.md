@@ -24,7 +24,7 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 | `start-branch` | `/start-branch` | Creates or confirms the branch, reads the ticket, and creates or reopens the ticket's planning file. Stops before planning. |
 | `start-coding` | `/start-coding` | The go-ahead to build a recorded plan. Works the planning file's steps in one pass, records findings as they happen, runs the checks, and reports what still needs you. |
 | `start-review` | `/start-review` | Checks out a teammate's MR or PR branch, reads the ticket and discussions, runs the tests, and opens a review file recording the reviewed SHA. Stops before reviewing. |
-| `step-through-code` | `/step-through-code` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click, options to try and expectation per step, with a coverage check. |
+| `walk-through-changes` | `/walk-through-changes` | Writes a step-by-step browser walkthrough of a branch: prerequisites, a restarted dev server whose logs it can read, then rough URL, click, options to try and expectation per step, with a coverage check. |
 | `check` | `/check <task>` | Investigates the task read-only, prints a proposal in the `action-plan.md` shape, and waits. `/do` runs it. |
 | `do` | `/do` | The go-ahead in one word. Bare, it runs the last proposal exactly as printed; with text, it answers that proposal's open decision or does the task described. Never commits or pushes. |
 | `handoff` | `/handoff` | Sweeps the chat and auto-memory into the planning file, deletes dead ideas, rewrites Status, and prints a one-line resume prompt. Never commits. |

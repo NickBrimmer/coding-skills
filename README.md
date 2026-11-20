@@ -19,8 +19,6 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 | `code-review` | `/code-review` | Reviews a PR, branch, or diff against a checklist: ticket fidelity, scope creep, security, accessibility, testing, error handling, repo conventions. |
 | `bug-hunt` | `/bug-hunt` | Finds bugs the diff does not show — missed call sites after a one-to-many change, broken invariants, fix claims nobody reproduced. |
 | `adversarial-review` | `/adversarial-review` | A hostile two-session review. One session attacks the diff and its assumptions, the other defends and fixes, in short capped lines in the ticket file. |
-| `end-my-day` | `/end-my-day` | Five closing questions. Writes what is in flight to the project's private `tomorrow.txt` and appends what you learned to the coding ledger. |
-| `start-my-day` | `/start-my-day` | Reads `tomorrow.txt`, checks each item against the repo as it is now, and hands back a short plan with a concrete first action. |
 | `start-branch` | `/start-branch` | Creates or confirms the branch, reads the ticket, and creates or reopens the ticket's planning file. Stops before planning. |
 | `start-coding` | `/start-coding` | The go-ahead to build a recorded plan. Works the planning file's steps in one pass, records findings as they happen, runs the checks, and reports what still needs you. |
 | `start-review` | `/start-review` | Checks out a teammate's MR or PR branch, reads the ticket and discussions, runs the tests, and opens a review file recording the reviewed SHA. Stops before reviewing. |
@@ -34,9 +32,10 @@ person live in private files the skills find by path — see [Privacy](#privacy)
 
 `code-review` hands off to `bug-hunt` when a change generalizes one case to many or
 claims to fix a bug. `adversarial-review` is the heavier version for changes where being
-wrong is expensive — migrations, access control, money — and it leans on both. `end-my-day`
-and `start-my-day` are two halves of one loop: the first writes `tomorrow.txt`, the second
-reads it.
+wrong is expensive — migrations, access control, money — and it leans on both.
+
+`archive/` holds retired skills. `install.sh` links only top-level folders, so they are
+not loaded; move one back up a level and rerun `install.sh` to restore it.
 
 ### Running an adversarial review
 

@@ -122,6 +122,9 @@ Default to **plan → record → implement**, as three distinct steps, and do no
   State the steps and the expected outcome first, and wait for a yes before running them.
 - **A proposal shows the exact artifact,** puts the one decision first, and ends with a
   read-back step — `ticket-planning/references/action-plan.md`.
+- **A step that says "build X like Y" is a design question.** Before writing it, ask
+  whether X and Y should share one implementation. A near-copy is where the next change
+  gets made twice, and the copies drift.
 - Reconnaissance is fine and encouraged during planning: reading code, `git` inspection,
   dry-runs, spikes that get thrown away. What needs a green light is **code intended to survive**.
 - If a spike is genuinely the fastest way to answer a design question, say that first and
@@ -251,6 +254,10 @@ Before bringing the engineer a scope or behaviour question, read the governing t
 in full: description, Q&A, and comments, not a keyword search. Answer from it when it answers.
 When it is silent, say so — "read in full, it does not say" — and give a recommendation
 rather than reaching for sources outside it.
+
+While a question waits on someone else, plan the conservative option — the one that
+exposes less and is easier to widen later — and name it as the interim choice. An open
+question is not a reason to leave the riskier path in place.
 
 **Why:** the engineer has to re-read the ticket every time an agent asks something it already
 answers, and an outside source can quietly override what the ticket decided.
